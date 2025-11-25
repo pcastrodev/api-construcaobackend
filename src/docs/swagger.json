@@ -24,34 +24,21 @@
         "type": "object",
         "required": ["name", "email", "password"],
         "properties": {
-          "name": {
-            "type": "string",
-            "example": "Pedro Castro"
-          },
-          "email": {
-            "type": "string",
-            "example": "pedro@example.com"
-          },
-          "password": {
-            "type": "string",
-            "example": "123456"
-          }
+          "name": { "type": "string", "example": "Pedro Castro" },
+          "email": { "type": "string", "example": "pedro@example.com" },
+          "password": { "type": "string", "example": "123456" }
         }
       },
+
       "LoginRequest": {
         "type": "object",
         "required": ["email", "password"],
         "properties": {
-          "email": {
-            "type": "string",
-            "example": "pedro@example.com"
-          },
-          "password": {
-            "type": "string",
-            "example": "123456"
-          }
+          "email": { "type": "string", "example": "pedro@example.com" },
+          "password": { "type": "string", "example": "123456" }
         }
       },
+
       "AuthUser": {
         "type": "object",
         "properties": {
@@ -60,6 +47,7 @@
           "email": { "type": "string", "example": "pedro@example.com" }
         }
       },
+
       "AuthResponse": {
         "type": "object",
         "properties": {
@@ -70,17 +58,50 @@
           }
         }
       },
+
       "ErrorResponse": {
         "type": "object",
         "properties": {
-          "message": {
+          "message": { "type": "string", "example": "Mensagem de erro." }
+        }
+      },
+
+      "ProductInput": {
+        "type": "object",
+        "required": ["name", "price"],
+        "properties": {
+          "name": { "type": "string", "example": "Teclado Mecânico" },
+          "price": { "type": "number", "example": 199.9 },
+          "description": {
             "type": "string",
-            "example": "Mensagem de erro."
+            "example": "Teclado mecânico ABNT2 com switch blue"
+          }
+        }
+      },
+
+      "Product": {
+        "type": "object",
+        "properties": {
+          "_id": { "type": "string", "example": "66f0c2ad4f2a1b1234567890" },
+          "name": { "type": "string", "example": "Mouse Gamer" },
+          "price": { "type": "number", "example": 150.0 },
+          "description": {
+            "type": "string",
+            "example": "Mouse gamer RGB com 6 botões"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
           }
         }
       }
     }
   },
+
   "paths": {
     "/api/health": {
       "get": {
@@ -94,10 +115,7 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "status": {
-                      "type": "string",
-                      "example": "OK"
-                    }
+                    "status": { "type": "string", "example": "OK" }
                   }
                 }
               }
@@ -106,6 +124,7 @@
         }
       }
     },
+
     "/api/auth/register": {
       "post": {
         "tags": ["Auth"],
@@ -114,9 +133,7 @@
           "required": true,
           "content": {
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RegisterRequest"
-              }
+              "schema": { "$ref": "#/components/schemas/RegisterRequest" }
             }
           }
         },
@@ -125,9 +142,7 @@
             "description": "Usuário registrado com sucesso",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AuthResponse"
-                }
+                "schema": { "$ref": "#/components/schemas/AuthResponse" }
               }
             }
           },
@@ -135,9 +150,7 @@
             "description": "Dados inválidos",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
               }
             }
           },
@@ -145,15 +158,14 @@
             "description": "Email já cadastrado",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
               }
             }
           }
         }
       }
     },
+
     "/api/auth/login": {
       "post": {
         "tags": ["Auth"],
@@ -162,9 +174,7 @@
           "required": true,
           "content": {
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/LoginRequest"
-              }
+              "schema": { "$ref": "#/components/schemas/LoginRequest" }
             }
           }
         },
@@ -173,9 +183,7 @@
             "description": "Login realizado com sucesso",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AuthResponse"
-                }
+                "schema": { "$ref": "#/components/schemas/AuthResponse" }
               }
             }
           },
@@ -183,9 +191,7 @@
             "description": "Dados inválidos",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
               }
             }
           },
@@ -193,24 +199,19 @@
             "description": "Credenciais inválidas",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
               }
             }
           }
         }
       }
     },
+
     "/api/auth/me": {
       "get": {
         "tags": ["Auth"],
         "summary": "Obter usuário autenticado",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
+        "security": [{ "bearerAuth": [] }],
         "responses": {
           "200": {
             "description": "Dados do usuário autenticado",
@@ -229,9 +230,191 @@
             "description": "Token inválido ou não enviado",
             "content": {
               "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/api/product": {
+      "post": {
+        "tags": ["Products"],
+        "summary": "Criar um novo produto",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/ProductInput" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Produto criado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Product" }
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "401": {
+            "description": "Token não enviado ou inválido",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        }
+      },
+
+      "get": {
+        "tags": ["Products"],
+        "summary": "Listar todos os produtos",
+        "responses": {
+          "200": {
+            "description": "Lista de produtos",
+            "content": {
+              "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Product" }
                 }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/api/product/{id}": {
+      "get": {
+        "tags": ["Products"],
+        "summary": "Buscar produto por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Produto encontrado",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Product" }
+              }
+            }
+          },
+          "404": {
+            "description": "Produto não encontrado",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        }
+      },
+
+      "put": {
+        "tags": ["Products"],
+        "summary": "Atualizar produto",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/ProductInput" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Produto atualizado",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Product" }
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "401": {
+            "description": "Token não enviado ou inválido",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "404": {
+            "description": "Produto não encontrado",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        }
+      },
+
+      "delete": {
+        "tags": ["Products"],
+        "summary": "Excluir produto",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Produto removido com sucesso"
+          },
+          "401": {
+            "description": "Token não enviado ou inválido",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "404": {
+            "description": "Produto não encontrado",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
               }
             }
           }
