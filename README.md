@@ -1,130 +1,173 @@
-🚀 API de Autenticação - Construção de Backend (ADS)
-Este repositório contém a API desenvolvida na disciplina de Construção de Backend do curso de Análise e Desenvolvimento de Sistemas.
+# API de Produtos – Construção de Back-end (ADS)
 
-📋 Sobre o Projeto
-A API aplica, na prática:
+API RESTful desenvolvida em Node.js + Express para gerenciar a entidade **Produto**, 
+como parte da disciplina de Construção de Back-end do curso de ADS.
 
-Node.js + Express
+## Tecnologias utilizadas
 
-MongoDB Atlas + Mongoose
+- Node.js
+- Express
+- MongoDB Atlas + Mongoose
+- JWT (jsonwebtoken)
+- bcrypt
+- Jest + Supertest (testes)
+- Swagger / OpenAPI (documentação)
+- ESLint + Prettier
 
-Autenticação com JWT (JSON Web Tokens)
+## Arquitetura do projeto
 
-Middlewares de segurança
-
-Documentação com Swagger (OpenAPI)
-
-Boas práticas de organização de código
-
-📁 Estrutura do Projeto
+```txt
 src/
-├── config/
-│ └── database.js
-├── controllers/
-│ └── authController.js
-├── middlewares/
-│ └── requireAuth.js
-├── models/
-│ └── User.js
-├── routes/
-│ ├── authRoutes.js
-│ └── index.js
-├── app.js
-└── server.js
+  app.js
+  server.js
+  config/
+    database.js
+  models/
+    Product.js
+    User.js
+  controllers/
+    productController.js
+    authController.js
+  routes/
+    productRoutes.js
+    authRoutes.js
+    index.js
+tests/
+  auth.test.js
+  product.test.js
+```
 
-⚙️ Pré-requisitos
-Node.js 18+
+## Pré-requisitos
+- Node.js 18+
+- NPM instalado
+- Conta no MongoDB Atlas
+- Arquivo .env configurado
 
-NPM instalado
+## Configuração do Ambiente
+1. Clone o repositório:
+- git clone https://github.com/pcastrodev/api-construcaobackend.git
+- cd api-construcaobackend
+2. Instale as dependências
+- npm install
+3. Crie o arquivo .env na raiz do projeto:
+- PORT=3000
+- MONGO_URI=coloque_sua_string_do_mongodb_atlas_aqui
+- JWT_SECRET=umsegredoforteaqui123
+- JWT_EXPIRES_IN=1h
+4. Execute o projeto
+- Modo desenvolvimento:
+  - npm run dev
+- Modo produção:
+  - npm start
+  
+## Scripts disponíveis
+- npm run dev     # inicia com nodemon
+- npm start       # inicia em modo produção
+- npm run lint    # análise de código com ESLint
+- npm run format  # formata com Prettier
+- npm test        # executa testes automatizados
 
-Conta no MongoDB Atlas
+## Endpoints da API
+### Autenticação
+- POST /api/auth/register
+Registra um novo usuário.
 
-Arquivo .env configurado
-
-🔐 Variáveis de Ambiente
-Crie um arquivo .env na raiz do projeto:
-
-PORT=3000
-MONGO_URI=sua_string_de_conexao_mongodb_atlas
-JWT_SECRET=um_segredo_forte_e_complexo
-JWT_EXPIRES_IN=1h
-
-📦 Instalação
-Clone o projeto:
-git clone https://github.com/SEU-USUARIO/SEU-REPO.git
-
-Entre no diretório:
-cd SEU-REPO
-
-Instale as dependências:
-npm install
-
-▶️ Executando a API
-Modo desenvolvimento:
-npm run dev
-
-Servidor rodará em:
-http://localhost:3000
-
-🌐 Endpoints da API
-🔹 Health Check
-GET /api/health
-
-Resposta:
+Body (JSON)
 {
-"status": "OK",
-"timestamp": "2024-01-01T00:00:00.000Z"
+  "name": "Seu Nome",
+  "email": "email@example.com",
+  "password": "senha123"
 }
 
-🔹 Registro de Usuário
-POST /api/auth/register
+Respostas
+  - 201 Created – Usuário criado com sucesso
+  - 400 Bad Request – Dados ausentes/invalidos
+  - 409 Conflict – Email já cadastrado
 
-Body:
+- POST /api/auth/login
+Realiza o login e retorna um token JWT.
+
+Body (JSON)
 {
-"name": "Pedro Castro",
-"email": "pedro@example.com",
-"password": "123456"
+  "email": "email@example.com",
+  "password": "senha123"
 }
 
-🔹 Login
-POST /api/auth/login
+Respostas
+  - 200 OK – Autenticado
+  - 400 Bad Request
+  - 401 Unauthorized
 
-Body:
+### Para acessar rotas protegidas
+Enviar o header:
+- Authorization: Bearer <seu_token_jwt>
+
+## Produtos – CRUD Completo
+- GET /api/products
+Lista todos os produtos.
+  - 200 OK
+
+- GET /api/products/:id
+Retorna um produto pelo ID.
+  - 200 OK
+  - 404 Not Found
+
+- POST /api/products (protegido)
+Cria um novo produto.
+
+Body (JSON):
 {
-"email": "pedro@example.com",
-"password": "123456"
+  "name": "Teclado Mecânico",
+  "price": 299.9,
+  "stock": 20
 }
 
-Resposta:
-{
-"user": {
-"id": "123",
-"name": "Pedro Castro",
-"email": "pedro@example.com"
-},
-"token": "jwt_token_aqui"
-}
+Respostas:
+  - 201 Created
+  - 400 Bad Request
+  - 401 Unauthorized
 
-🔹 Rota Protegida (Usuário logado)
-GET /api/auth/me
+- PUT /api/products/:id (protegido)
+Atualiza um produto existente.
+  - 200 OK
+  - 400 Bad Request
+  - 401 Unauthorized
+  - 404 Not Found
 
-Headers:
-Authorization: Bearer SEU_TOKEN_AQUI
+- DELETE /api/products/:id (protegido)
+Deleta um produto.
+  - 204 No Content
+  - 404 Not Found
+  - 401 Unauthorized
 
-📚 Documentação Swagger
-A documentação interativa da API está disponível em:
-http://localhost:3000/api-docs
+## Documentação Swagger / OpenAPI
+### A documentação completa está disponível em:
+- http://localhost:3000/api-docs
 
-🧾 Scripts NPM
-npm run dev - Inicia o servidor em modo desenvolvimento
+## Testes Automatizados
+### Para executar todos os testes:
+- npm test
 
-npm start - Inicia o servidor em produção
+## Testes incluem:
+- Registro e login de usuário
+- CRUD da entidade Produto
+- Validações e autenticação JWT
 
-npm run lint - Executa análise estática do código
+👥 Integrantes & Divisão de Tarefas
+Pedro Castro (@pcastrodev)
+✔ Setup inicial
+✔ ESLint + Prettier
+✔ Configuração MongoDB Atlas e Mongoose
+✔ Autenticação JWT
+✔ Middleware requireAuth
+✔ Swagger/OpenAPI
+✔ README & documentação geral
 
-npm run format - Formata o código automaticamente
+Gabriel Gomes (@GabrielGomesAL)
+✔ CRUD completo da entidade Produto
+✔ Validações de domínio
+✔ Testes automatizados
+✔ Documentação do CRUD no Swagger
+✔ Revisão final do projeto
 
-👥 Autores
-Pedro Castro – @pcastrodev
-
-Gabriel Gomes – @GabrielGomesAL
+Todas as tarefas, PRs e Issues podem ser consultadas no GitHub Projects do repositório.
