@@ -84,6 +84,7 @@ Respostas
   - 400 Bad Request – Dados ausentes/invalidos
   - 409 Conflict – Email já cadastrado
 
+
 - POST /api/auth/login
 Realiza o login e retorna um token JWT.
 
