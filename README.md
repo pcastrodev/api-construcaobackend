@@ -157,11 +157,17 @@ Deleta um produto.
 ### Pedro Castro (@pcastrodev)
 
 ✔ Setup inicial
+
 ✔ ESLint + Prettier
+
 ✔ Configuração MongoDB Atlas e Mongoose
+
 ✔ Autenticação JWT
+
 ✔ Middleware requireAuth
+
 ✔ Swagger/OpenAPI
+
 ✔ README & documentação geral
 
 ### Gabriel Gomes (@GabrielGomesAL)
