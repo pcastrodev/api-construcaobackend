@@ -70,7 +70,6 @@ tests/
 ## Endpoints da API
 ### Autenticação
 - POST /api/auth/register
-
 Registra um novo usuário.
 
 Body (JSON)
@@ -86,7 +85,6 @@ Respostas
   - 409 Conflict – Email já cadastrado
 
 - POST /api/auth/login
-
 Realiza o login e retorna um token JWT.
 
 Body (JSON)
@@ -102,23 +100,19 @@ Respostas
 
 ### Para acessar rotas protegidas
 Enviar o header:
-
 - Authorization: Bearer <seu_token_jwt>
 
 ## Produtos – CRUD Completo
 - GET /api/products
-
 Lista todos os produtos.
   - 200 OK
 
 - GET /api/products/:id
-
 Retorna um produto pelo ID.
   - 200 OK
   - 404 Not Found
 
 - POST /api/products (protegido)
-
 Cria um novo produto.
 
 Body (JSON):
@@ -134,7 +128,6 @@ Respostas:
   - 401 Unauthorized
 
 - PUT /api/products/:id (protegido)
-
 Atualiza um produto existente.
   - 200 OK
   - 400 Bad Request
@@ -142,7 +135,6 @@ Atualiza um produto existente.
   - 404 Not Found
 
 - DELETE /api/products/:id (protegido)
-
 Deleta um produto.
   - 204 No Content
   - 404 Not Found
