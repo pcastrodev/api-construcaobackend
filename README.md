@@ -173,9 +173,13 @@ Deleta um produto.
 ### Gabriel Gomes (@GabrielGomesAL)
 
 ✔ CRUD completo da entidade Produto
+
 ✔ Validações de domínio
+
 ✔ Testes automatizados
+
 ✔ Documentação do CRUD no Swagger
+
 ✔ Revisão final do projeto
 
 ### Todas as tarefas, PRs e Issues podem ser consultadas no GitHub Projects do repositório.
