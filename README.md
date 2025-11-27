@@ -153,8 +153,9 @@ Deleta um produto.
 - CRUD da entidade Produto
 - Validações e autenticação JWT
 
-👥 Integrantes & Divisão de Tarefas
-Pedro Castro (@pcastrodev)
+## Integrantes & Divisão de Tarefas
+### Pedro Castro (@pcastrodev)
+
 ✔ Setup inicial
 ✔ ESLint + Prettier
 ✔ Configuração MongoDB Atlas e Mongoose
@@ -163,11 +164,12 @@ Pedro Castro (@pcastrodev)
 ✔ Swagger/OpenAPI
 ✔ README & documentação geral
 
-Gabriel Gomes (@GabrielGomesAL)
+### Gabriel Gomes (@GabrielGomesAL)
+
 ✔ CRUD completo da entidade Produto
 ✔ Validações de domínio
 ✔ Testes automatizados
 ✔ Documentação do CRUD no Swagger
 ✔ Revisão final do projeto
 
-Todas as tarefas, PRs e Issues podem ser consultadas no GitHub Projects do repositório.
+### Todas as tarefas, PRs e Issues podem ser consultadas no GitHub Projects do repositório.
